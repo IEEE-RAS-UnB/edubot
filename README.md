@@ -1,6 +1,6 @@
 Repositório com aulas e códigos utilizados no Projeto Edubot.
 
-O Projeto Edubot é um projeto realizado pela Capítulo Estudantil da IEEE RAS na Universidade de Brasília.
+O Projeto Edubot é um projeto realizado pelo Capítulo Estudantil da IEEE RAS na Universidade de Brasília.
 
 ---------------------------------------------------------------------------------------------------------
 
