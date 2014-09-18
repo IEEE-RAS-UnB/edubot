@@ -9,7 +9,7 @@
 #include <Sparki.h>
 
 //Se houver um obstáculo a uma distância menor do que essa, o robô irá tentar desviar
-#define distancia_minima 20
+const int distancia_minima 20
 
 //Funções
 void imprimir (int); //Imprime distância na frente
@@ -32,56 +32,48 @@ void loop()
     
     distancia_frente = sparki.ping(); //Mede a distancia, usando o Sonar
     
-    while (distancia_frente > distancia_minima || distancia_frente == -1) //A medição "-1" occore quando há algum erro. Neste caso, devemos simplesmente ignorar e fazer uma nova leitura
+    //Vamos imprimir no monitor LCD do Sparki os valores que estão sendo lidos:
+    imprimir (distancia_frente);
+    
+    if(distancia_frente < distancia_minima && distancia_frente != -1) //A medição "-1" occore quando há algum erro. Neste caso, devemos simplesmente ignorar e fazer uma nova leitura
     {
-      distancia_frente = sparki.ping ();
+      sparki.moveStop (); //O robô para, pois há um obstáculo a frente e ele precisa desviar!
+      imprimir ("Estou muito perto de um obstáculo! Preciso desviar!");
+      
+      //Agora, o robô deve decidir para onde ir. Lembre-se, ângulos positivos fazem o robô olhar para a direita; negativos, para a esquerda!
+      sparki.servo (70); //Olha para a direita
+      delay (1000); //Esperamos um pouco para que o Sonar esteja na posição desejada
+
+      distancia_direita = sparki.ping (); //Faz a medição
+      
+      sparki.servo (-70); //Olha para a esquerda
+      delay (1000); //Esperamos um pouco para que o Sonar esteja na posição desejada
+      
+      distancia_esquerda = sparki.ping (); //Faz a medição
+      
+      sparki.servo (0); //Olha para a frente
       
       //Vamos imprimir no monitor LCD do Sparki os valores que estão sendo lidos:
-      imprimir (distancia_frente);
-    }
-    
-    sparki.moveStop (); //O robô para, pois há um obstáculo a frente e ele precisa desviar!
-    imprimir ("Estou muito perto de um obstáculo! Preciso desviar!");
-    
-    //Agora, o robô deve decidir para onde ir. Lembre-se, ângulos positivos fazem o robô olhar para a direita; negativos, para a esquerda!
-    sparki.servo (70); //Olha para a direita
-    delay (1000); //Esperamos um pouco para que o Sonar esteja na posição desejada
-
-    do
-    {
-      distancia_direita = sparki.ping (); //Faz a medição
-    } while (distancia_direita == -1); //Checa se houve erro na medição
-    
-    sparki.servo (-70); //Olha para a esquerda
-    delay (1000); //Esperamos um pouco para que o Sonar esteja na posição desejada
-
-    do
-    {
-      distancia_esquerda = sparki.ping (); //Faz a medição
-    } while (distancia_esquerda == -1); //Checa se houve erro na medição
-    
-    sparki.servo (0);
-    
-    //Vamos imprimir no monitor LCD do Sparki os valores que estão sendo lidos:
-    imprimir (distancia_direita, distancia_esquerda);
-    
-    if ( distancia_direita <= 20 && distancia_esquerda <= 20 ) //Neste caso, o robô está muito perto de obstáculos em todas as direções, então ele tenta voltar
-    {
-      sparki.moveRight (180); //Dá meia-volta
-    }
-    else
-    {
-      if ( distancia_direita > distancia_esquerda ) //Neste caso, há mais espaço para o robô ir na direita
+      imprimir (distancia_direita, distancia_esquerda);
+      
+      if ( distancia_direita <= 20 && distancia_esquerda <= 20 ) //Neste caso, o robô está muito perto de obstáculos em todas as direções, então ele tenta voltar
       {
-        sparki.moveRight (90); //Vira 90º para a direita
+        sparki.moveRight (180); //Dá meia-volta
       }
-      else //Neste caso, há mais espaço para o robô ir na esquerda
+      else
       {
-        sparki.moveLeft (90); //Vira 90º para a esquerda
+        if ( distancia_direita > distancia_esquerda ) //Neste caso, há mais espaço para o robô ir na direita
+        {
+          sparki.moveRight (90); //Vira 90º para a direita
+        }
+        else //Neste caso, há mais espaço para o robô ir na esquerda
+        {
+          sparki.moveLeft (90); //Vira 90º para a esquerda
+        }
       }
+      
+      delay (1000);
     }
-    
-    delay (1000);
 }
 
 void imprimir (int dist_f)
