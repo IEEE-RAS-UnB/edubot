@@ -9,6 +9,7 @@ void tratarSonar();
 void setup()
 {
   sparki.servo(0);
+
   //pinMode(A0, INPUT);
   randomSeed(analogRead(A0));
 }

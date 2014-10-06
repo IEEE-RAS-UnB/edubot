@@ -5,7 +5,7 @@ na linha, ou seja, se esta no "escuro" ou esta fora dela, ou seja, no "claro" e 
 
 void setup()
 {
-  
+  sparki.servo(0);
 }
 
 void loop(){
