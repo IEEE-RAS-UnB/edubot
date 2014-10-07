@@ -1,0 +1,2 @@
+Para instalar o SparkiDuino no Window ou no Mac OSX, siga as instruções em http://arcbotics.com/products/sparki/start/
+Para instalar em sistemas Linux-like, siga as instruções contidas na pasta "Linux".
