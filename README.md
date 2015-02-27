@@ -1,6 +1,6 @@
 ![RAS Front](https://dl.dropboxusercontent.com/u/2655937/ras-text%2Brobots%2Blogo.png)
 
-**ATENÇÃO ALUNOS:** para fazer o download das aulas, clique [aqui](http://goo.gl/G5PdnO)!
+**ATENÇÃO ALUNOS:** para fazer o download das aulas, clique [aqui](https://github.com/mendelson/edubot/archive/master.zip)!
 
 Repositório com aulas e códigos utilizados no Projeto Edubot.
 
