@@ -61,13 +61,13 @@ void changeMode(int code){
     case 25:
        status = DO_NOTHING_MODE;
        break;
-    case 12:
+    case 64:
        status = HUMAN_CONTROL_MODE;
        break;
     case 24:
        status = LIGHT_FOLLOWER_MODE;
        break;
-    case 94:
+    case 22:
        status = LIGHT_FOLLOWER_AVOID;
        break;
     default:
@@ -79,7 +79,7 @@ void changeMode(int code){
  * Control robot moviment using remote control arrows
  */
 void modeHumanControl(int code){
-  sparki.RGB(100,0,0);
+  sparki.RGB(100,0,0); // RED light to make it look dangerous ..
   switch(code){
     case 70: sparki.moveForward(); break;
     case 21: sparki.moveBackward(); break;
@@ -116,7 +116,7 @@ void light_follower(){
    sparki.RGB(50,100,70);
    sparki.motorRotate(MOTOR_LEFT, DIR_CCW, leftLight/11);
    sparki.motorRotate(MOTOR_RIGHT, DIR_CW, rightLight/11);
-   sparki.servo((rightLight-leftLight)/12);
+   sparki.servo((rightLight-leftLight)/15);
 }
 
 /**
