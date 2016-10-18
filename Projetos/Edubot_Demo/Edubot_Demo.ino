@@ -17,6 +17,13 @@
 #define HUMAN_CONTROL_MODE 1
 #define LIGHT_FOLLOWER_MODE 2
 #define LIGHT_FOLLOWER_AVOID 3
+#define LINE_FOLLOWER_MODE 4
+
+// Calibration Constants
+#define MIN_LIGHT 995
+#define LINE_THRESHOLD 700
+#define SERVO_LEFT 80
+#define SERVO_RIGHT -80
 
 // State Variables
 int status;
@@ -30,18 +37,31 @@ void setup() {
 }
 
 void loop() {
-  //Scan for IR Receiver
-  int code = sparki.readIR();
+  // Read Sensors
+  int code = sparki.readIR();   //Scan for IR Receiver
+  int centerLight = sparki.lightCenter();
+  int leftLight = (sparki.lightLeft() - MIN_LIGHT)*100;
+  int rightLight = (sparki.lightRight() - MIN_LIGHT)*100;
+  
+  int lineLeft   = sparki.lineLeft();   // measure the left IR sensor
+  int lineCenter = sparki.lineCenter(); // measure the center IR sensor
+  int lineRight  = sparki.lineRight();  // measure the right IR sensor
+
+  // Set mode
+  changeMode(code);
 
   switch(status){
     case HUMAN_CONTROL_MODE:
         modeHumanControl(code);
         break;
     case LIGHT_FOLLOWER_MODE:
-        light_follower();
+        light_follower(leftLight,rightLight);
         break;
     case LIGHT_FOLLOWER_AVOID:
-        light_avoid();
+        light_avoid(leftLight,rightLight);
+        break;
+    case LINE_FOLLOWER_MODE:
+        line_follower(lineLeft,lineCenter,lineRight, LINE_THRESHOLD);
         break;
     case DO_NOTHING_MODE:
     default:
@@ -49,8 +69,6 @@ void loop() {
         sparki.RGB(RGB_OFF); // clear the RGB
         break;
   }
-
-  changeMode(code);
 }
 
 /**
@@ -67,8 +85,8 @@ void changeMode(int code){
     case 24:
        status = LIGHT_FOLLOWER_MODE;
        break;
-    case 22:
-       status = LIGHT_FOLLOWER_AVOID;
+    case 94:
+       status = LINE_FOLLOWER_MODE;
        break;
     default:
        status = status;
@@ -108,10 +126,7 @@ void modeHumanControl(int code){
 /**
  * Move "head" to the light and follow
  */
-void light_follower(){
-  int leftLight = sparki.lightLeft();
-  int rightLight = sparki.lightRight();
-
+void light_follower(int leftLight, int rightLight){
    // Avoid Light
    sparki.RGB(50,100,70);
    sparki.motorRotate(MOTOR_LEFT, DIR_CCW, leftLight/11);
@@ -122,13 +137,33 @@ void light_follower(){
 /**
  * Move "head" against the light and run out
  */
-void light_avoid(){
-  int leftLight = sparki.lightLeft();
-  int rightLight = sparki.lightRight();
+void light_avoid(int leftLight, int rightLight){
 
    // Follow Light
    sparki.RGB(0,0,100);
    sparki.motorRotate(MOTOR_LEFT, DIR_CW, leftLight/11);
    sparki.motorRotate(MOTOR_RIGHT, DIR_CCW, rightLight/11);
    sparki.servo((leftLight-rightLight)/12);
+}
+
+/**
+ * Basic line Follower
+ */
+void line_follower(int lineLeft, int lineCenter, int lineRight, int threshold){
+  sparki.RGB(0,100,0);
+  if ( lineCenter < threshold ) // if line is below left line sensor
+  {  
+    sparki.moveForward(); // move forward
+  }
+  else{
+    if ( lineLeft < threshold ) // if line is below left line sensor
+    {  
+      sparki.moveLeft(); // turn left
+    }
+  
+    if ( lineRight < threshold ) // if line is below right line sensor
+    {  
+      sparki.moveRight(); // turn right
+    }
+  }
 }
