@@ -5,6 +5,7 @@
  *  1 - Controled by Remote
  *  2 - Light Follower
  *  3 - Light Avoid
+ *  4 - Line Follower
  *  
  *  @author Rafael Lima
  *  @version 0.3
