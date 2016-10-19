@@ -12,6 +12,18 @@
 
 #include <Sparki.h>  // include the robot library
 
+// Control Codes
+// /------^-----\
+// |            |
+// | 69  70  71 |
+// | 68  64  67 |
+// |  7  21   9 |
+// | 22  25  13 |
+// | 12  24  94 |
+// |  8  28  90 |
+// | 66  82  74 |
+// \____________/
+
 // State Codes
 #define DO_NOTHING_MODE 0
 #define HUMAN_CONTROL_MODE 1
