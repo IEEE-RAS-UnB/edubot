@@ -142,21 +142,20 @@ void modeHumanControl(int code){
 void light_follower(int leftLight, int rightLight){
    // Avoid Light
    sparki.RGB(50,100,70);
-   sparki.motorRotate(MOTOR_LEFT, DIR_CCW, leftLight/11);
-   sparki.motorRotate(MOTOR_RIGHT, DIR_CW, rightLight/11);
-   sparki.servo((rightLight-leftLight)/15);
+   sparki.motorRotate(MOTOR_LEFT, DIR_CCW, leftLight/11); // Mapping: leftLight/round(1024/100)
+   sparki.motorRotate(MOTOR_RIGHT, DIR_CW, rightLight/11); // Mapping: rightLight/round(1024/100)
+   sparki.servo((rightLight-leftLight)/15); // Mapping adjusted to make it 'look' to the light
 }
 
 /**
  * Move "head" against the light and run out
  */
 void light_avoid(int leftLight, int rightLight){
-
    // Follow Light
    sparki.RGB(0,0,100);
-   sparki.motorRotate(MOTOR_LEFT, DIR_CW, leftLight/11);
-   sparki.motorRotate(MOTOR_RIGHT, DIR_CCW, rightLight/11);
-   sparki.servo((leftLight-rightLight)/12);
+   sparki.motorRotate(MOTOR_LEFT, DIR_CW, leftLight/11); // Mapping: leftLight/round(1024/100)
+   sparki.motorRotate(MOTOR_RIGHT, DIR_CCW, rightLight/11); // Mapping: rightLight/round(1024/100)
+   sparki.servo((leftLight-rightLight)/12); // Mapping: (leftLight-rightLight)/round(1024/90)
 }
 
 /**
