@@ -33,7 +33,7 @@
 #define LINE_FOLLOWER_MODE 4
 
 // Calibration Constants
-#define MIN_LIGHT 995
+#define MIN_LIGHT 700
 #define LINE_THRESHOLD 700
 #define SERVO_LEFT 80
 #define SERVO_RIGHT -80
