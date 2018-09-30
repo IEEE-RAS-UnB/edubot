@@ -14,4 +14,4 @@ Repository with classes and codes used on Project Edubot.
 
 Project Edubot is a project offered by the IEEE RAS Student Chapter at the University of Brasília. Feel free to visit our facebook page: https://www.facebook.com/ieee.ras.unb
 
-Classes based on the tutorials at: http://arcbotics.com/products/sparki/start/
+Classes based on the Arcbotics tutorials at: http://arcbotics.com/products/sparki/start/
