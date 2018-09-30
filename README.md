@@ -1,5 +1,3 @@
-![RAS Front](https://dl.dropboxusercontent.com/u/2655937/edubot-logo%2Bras-text.png)
-
 **ATENÇÃO ALUNOS:** para fazer o download das aulas, clique [aqui](https://github.com/IEEE-RAS-UnB/edubot.git)!
 
 Repositório com aulas e códigos utilizados no Projeto Edubot.
