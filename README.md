@@ -8,7 +8,7 @@ Todas as aulas são baseadas nos tutoriais da [Arcbotics](http://arcbotics.com/p
 ---
 Repository containing lessons materials and codes made by Project Edubot.
 
-Project Edubot is a project offered by the IEEE RAS Student Chapter at the University of Brasília. 
+Project Edubot is a project sponsored by the IEEE RAS Student Chapter at the University of Brasília. 
 All lessons are based on [Arcbotics tutorials](http://arcbotics.com/products/sparki/start/)
 
 *Contact us* [Facebook](https://www.facebook.com/ieee.ras.unb) | [Instagram](https://www.instagram.com/projetoedubot/) | edubotprojeto at gmail.com
